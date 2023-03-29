@@ -6,7 +6,7 @@ export default function Custom404() {
       <div className="text-center">
         <p className="text-base font-mono font-semibold text-gold">404</p>
         <h1 className="uppercase mt-4 text-3xl font-condensed font-bold tracking-tight text-white sm:text-5xl">Page not found</h1>
-        <p className="mt-6 text-base font-mono leading-7 text-white">Sorry, we couldn't find thec:\Users\jesse\AppData\Local\Programs\Microsoft VS Code\resources\app\out\vs\code\electron-sandbox\workbench\workbench.html page you're looking for.</p>
+        <p className="mt-6 text-base font-mono leading-7 text-white">Sorry, we couldn't find the page you're looking for.</p>
         <div className="mt-10 flex items-center justify-center gap-x-6">
           <Link
             href="/"
