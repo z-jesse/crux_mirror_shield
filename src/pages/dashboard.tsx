@@ -11,7 +11,7 @@ export default function Dashboard() {
   return (
     <div className='grow relative'>
       <Image 
-        className="object-cover"
+        className="object-cover object-top"
         src="/north-cascades.jpg"
         alt="North Casdades"
         fill
