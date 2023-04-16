@@ -88,17 +88,18 @@ export default function Navbar() {
                   </div>
                 </div>
               </div>
+              { loggedIn && 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
-                  className="hidden rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="rounded-full p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                 >
                   <span className="sr-only">View notifications</span>
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Profile dropdown */}
-                <Menu as="div" className="relative ml-3 hidden">
+                <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="sr-only">Open user menu</span>
@@ -147,26 +148,16 @@ export default function Navbar() {
                           </button>
                         )}
                       </Menu.Item>}
-                      {!loggedIn && <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="/onboarding/login"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Login
-                          </a>
-                        )}
-                      </Menu.Item>}
                     </Menu.Items>
                   </Transition>
                 </Menu>
-
+              </div>}
+              {!loggedIn &&
                 <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
-                  <Link href="/login" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
+                  <Link href="/onboarding/login" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
                       Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
-                </div>
-              </div>
+                </div>}
             </div>
           </div>
 
