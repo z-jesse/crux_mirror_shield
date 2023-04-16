@@ -3,6 +3,11 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Space_Mono, Barlow_Condensed } from 'next/font/google'
 
+import { Provider } from 'react-redux'
+import { store, persistor } from '../../state/store'
+import { PersistGate } from 'redux-persist/integration/react';
+
+
 const barlow_condensed = Barlow_Condensed({
   weight: ['400', '600'],
   subsets: ['latin'],
@@ -17,10 +22,14 @@ const space_mono = Space_Mono({
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </main>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
+      </PersistGate>
+    </Provider>
   )
 }

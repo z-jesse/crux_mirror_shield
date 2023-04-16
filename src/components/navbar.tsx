@@ -4,6 +4,11 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
+import axios from 'axios'
+
+import { useDispatch, useSelector } from 'react-redux'
+import { updateUserState } from '../../state/slices/userSlice'
+import { RootState } from '../../state/store'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -19,6 +24,23 @@ function classNames(...classes: any) {
 
 export default function Navbar() {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.user);
+  const loggedIn = user.authenticated;
+
+  function logout() {
+    axios.get(`http://localhost:3001/api/v1/auth/logout`, { withCredentials: true }).then((res) => {
+        if (res.data.status == "success") {
+          const user = {
+            authenticated: false,
+            email: '',
+            id: 0,
+          }
+          dispatch(updateUserState(user));
+          router.push('/');
+        }
+    })
+  }
 
   return (
     <Disclosure as="nav" className="bg-black">
@@ -100,7 +122,7 @@ export default function Navbar() {
                       <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/dashboard/profile"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
                             Your Profile
@@ -117,16 +139,24 @@ export default function Navbar() {
                           </a>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {loggedIn && <Menu.Item>
+                        {({ active }) => (
+                          <button onClick={logout} className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          > 
+                            Sign Out
+                          </button>
+                        )}
+                      </Menu.Item>}
+                      {!loggedIn && <Menu.Item>
                         {({ active }) => (
                           <a
-                            href="#"
+                            href="/onboarding/login"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            Sign out
+                            Login
                           </a>
                         )}
-                      </Menu.Item>
+                      </Menu.Item>}
                     </Menu.Items>
                   </Transition>
                 </Menu>
