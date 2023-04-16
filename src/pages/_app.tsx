@@ -1,3 +1,4 @@
+import React from "react";
 import Layout from '@/components/layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
@@ -20,16 +21,23 @@ const space_mono = Space_Mono({
   variable: '--font-space-mono',
 })
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function RootContextProvider(props: AppProps) {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </main>
+        <App {...props} />
       </PersistGate>
     </Provider>
+  )
+}
+
+function App({ Component, pageProps }: AppProps) {
+
+  return (
+    <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </main>
   )
 }

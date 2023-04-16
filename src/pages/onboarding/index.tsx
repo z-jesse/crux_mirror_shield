@@ -11,9 +11,17 @@ export default function SignUp() {
 
     useEffect(() => {
         if (user.authenticated) {
-            Router.push("/dashboard/profile");
+            if (user.status === "onboarding") {
+                Router.push('/onboarding/user-details')
+            } else {
+                Router.push("/dashboard/profile");
+            }
         }
     })
+
+    if (user.authenticated === undefined) {
+        return null;
+    }
 
     function registerUser(e :any) {
         e.preventDefault();

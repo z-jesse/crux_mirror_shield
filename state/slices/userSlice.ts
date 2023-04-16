@@ -11,6 +11,7 @@ const initialState = {
     authenticated: false,
     email: '',
     id: 0,
+    status: '',
 }
 
 export const userSlice = createSlice({
@@ -18,7 +19,6 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         updateUserState(state, { payload }: PayloadAction<Partial<UserState>>) {
-            console.log("paylaod", payload)
             Object.assign(state, payload);
         },
     }

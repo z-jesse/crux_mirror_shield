@@ -11,7 +11,11 @@ export default function Login() {
 
     useEffect(() => {
         if (user.authenticated) {
-            Router.push("/dashboard/profile");
+            if (user.status === "onboarding") {
+                Router.push('/onboarding/user-details')
+            } else {
+                Router.push("/dashboard/profile");
+            }
         }
     })
 
@@ -30,6 +34,7 @@ export default function Login() {
                 authenticated: true,
                 email: res.data.user.email,
                 id: res.data.user.id,
+                status: res.data.user.status,
             }
             dispatch(updateUserState(user));
             Router.push("/dashboard/profile");

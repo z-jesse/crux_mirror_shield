@@ -11,6 +11,10 @@ export default function Profile() {
     useEffect(() => {
         if (!user.authenticated) {
             Router.push('/onboarding/login');
+        } else {
+            if (user.status === "onboarding") {
+                Router.push('/onboarding/user-details')
+            }
         }
     })
 

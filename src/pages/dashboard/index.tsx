@@ -1,3 +1,8 @@
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../state/store";
+import Router from "next/router";
+
 import BasicCard from "@/components/dashboard/BasicCard";
 import BigCard from "@/components/dashboard/BigCard";
 import BlueCard from "@/components/dashboard/BlueCard";
@@ -8,6 +13,22 @@ import SmallCard from "@/components/dashboard/SmallCard";
 import Image from "next/image";
 
 export default function Dashboard() {
+
+  const user = useSelector((state: RootState) => state.user);
+
+  useEffect(() => {
+    if (!user.authenticated) {
+      Router.push("/onboarding/login");
+    } else {
+      if (user.status === "onboarding") {
+          Router.push('/onboarding/user-details')
+      }
+    }
+  })
+
+  if (user.status !== "active") {
+    return <h1> Loading </h1>
+  }
   return (
     <div className='grow relative'>
       <Image 
@@ -50,3 +71,4 @@ export default function Dashboard() {
     </div>
   )
 }
+
