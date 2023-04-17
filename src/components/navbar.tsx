@@ -33,8 +33,8 @@ export default function Navbar() {
         if (res.data.status == "success") {
           const user = {
             authenticated: false,
-            email: '',
-            id: 0,
+            user: {},
+            user_details: {},
           }
           dispatch(updateUserState(user));
           router.push('/');

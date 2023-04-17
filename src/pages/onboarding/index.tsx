@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateUserState } from '../../../state/slices/userSlice';
+import { useSelector } from 'react-redux';
 import type { RootState } from '../../../state/store';
 
 export default function SignUp() {
@@ -11,7 +10,7 @@ export default function SignUp() {
 
     useEffect(() => {
         if (user.authenticated) {
-            if (user.status === "onboarding") {
+            if (!("status" in user.user) || user.user.status === "onboarding") {
                 Router.push('/onboarding/user-details')
             } else {
                 Router.push("/dashboard/profile");

@@ -2,16 +2,17 @@ import React, { useEffect } from 'react'
 import axios from 'axios'
 import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateUserState } from '../../../../state/slices/userSlice';
+import { ThunkDispatch } from 'redux-thunk';
+import { initUser } from '../../../../state/slices/userSlice';
 import type { RootState } from '../../../../state/store';
 
 export default function Login() {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
     const user = useSelector((state: RootState) => state.user);
 
     useEffect(() => {
         if (user.authenticated) {
-            if (user.status === "onboarding") {
+            if (!("status" in user.user) || user.user.status === "onboarding") {
                 Router.push('/onboarding/user-details')
             } else {
                 Router.push("/dashboard/profile");
@@ -29,17 +30,12 @@ export default function Login() {
             email: email,
             password: password,
         }, { withCredentials: true } ).then((res) => {
-            console.log(res.data)
-            const user = {
-                authenticated: true,
-                email: res.data.user.email,
-                id: res.data.user.id,
-                status: res.data.user.status,
+            if (res.data.status === "success") {
+                dispatch(initUser());
+                //dispatch(updateUserState({authenticated: true}))
             }
-            dispatch(updateUserState(user));
             Router.push("/dashboard/profile");
         })
-
     }
 
     return (

@@ -15,18 +15,19 @@ import Image from "next/image";
 export default function Dashboard() {
 
   const user = useSelector((state: RootState) => state.user);
+  console.log("user is", user)
 
   useEffect(() => {
     if (!user.authenticated) {
       Router.push("/onboarding/login");
     } else {
-      if (user.status === "onboarding") {
+      if (!("status" in user.user) || user.user.status === "onboarding") {
           Router.push('/onboarding/user-details')
       }
     }
   })
 
-  if (user.status !== "active") {
+  if (!("status" in user.user) || user.user.status !== "active") {
     return <h1> Loading </h1>
   }
   return (

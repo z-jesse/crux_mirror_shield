@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
+import Router from "next/router";
 
 import { useSelector } from "react-redux";
 import { RootState } from "@/../state/store";
+import { useDispatch } from "react-redux";
+import { ThunkDispatch } from 'redux-thunk';
+
+import { initUser } from "../../../../state/slices/userSlice";
 
 export default function UserDetails() {
 
     const user = useSelector((state: RootState) => state.user);
+    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 
-    function updateUserInformation(e :any) {
+    useEffect(() => {
+        if (!user.authenticated) {
+            Router.push('/onboarding/login');
+        } else {
+            if ("status" in user.user && user.user.status === "active") {
+                Router.push('/dashboard')
+            }
+        }
+    })
+
+    async function updateUserInformation(e :any) {
         e.preventDefault();
         
         const first = e.target.firstName.value;
@@ -18,13 +34,14 @@ export default function UserDetails() {
 
         if (validateParams(first, last, dob, phone)) {
             axios.post(`http://localhost:3001/api/v1/onboarding/update-user-information`, {
-                id: user.id,
+                id: "id" in user.user? user.user.id: 0,
                 first_name: first,
                 last_name: last,
                 dob: dob,
                 phone: phone,
-            }, { withCredentials: true } ).then((res) => {
-                console.log(res.data)
+            }, { withCredentials: true } ).then(async (res) => {
+                await dispatch(initUser());
+                Router.push("/dashboard")
             })
         }
     }

@@ -12,7 +12,7 @@ export default function Profile() {
         if (!user.authenticated) {
             Router.push('/onboarding/login');
         } else {
-            if (user.status === "onboarding") {
+            if (!("status" in user.user) || user.user.status === "onboarding") {
                 Router.push('/onboarding/user-details')
             }
         }
@@ -21,7 +21,7 @@ export default function Profile() {
     return (
         <>
             <h1> Hello </h1>
-            <h1> {user.email} </h1>
+            <h1> guy </h1>
         </>
     )
 }
