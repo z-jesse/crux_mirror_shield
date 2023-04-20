@@ -104,7 +104,61 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="bg-black">
+        <div>
+          <div className="flex flex-row max-w-7xl mx-auto bg-gold">
+            <div className="w-1/2">
+              <h2 className="uppercase font-condensed font-bold text-7xl">
+                Pay tuition.<br />Earn rewards.<br />Repeat.
+              </h2>
+              <p className="font-mono">
+                The first credit card for students and parents that helps you pay for school.
+              </p>
+              <Link href="/waitlist" className="font-mono">
+                Sign Up
+              </Link>
+            </div>
+            <div className="w-1/2 bg-green-200">
+              <p>Image</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-defgray py-10">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="uppercase font-condensed font-bold text-7xl text-gold text-center">
+              How it works.
+            </h2>
+          </div>
+        </div>
+
+        <div className="bg-black py-10">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="uppercase font-condensed font-bold text-7xl text-white text-center">
+              Refined design.
+            </h2>
+            <div className="flex max-w-xl mx-auto justify-center">
+              <video autoPlay muted loop src="/cruxcardv2.mp4"/>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-gold py-10">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="uppercase font-condensed font-bold text-7xl text-center">
+              Rewards like no other.
+            </h2>
+          </div>
+        </div>
+
+        <div className="bg-black py-10">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="uppercase font-condensed font-bold text-7xl text-white text-center">
+              Build credit.
+            </h2>
+          </div>
+        </div>
+
+        {/* <div className="bg-black">
           <div className="flex flex-col md:flex-row max-w-4xl mx-auto">
             <div className="flex flex-col w-full md:w-3/4 justify-center items-center">
               <h2 className="uppercase font-condensed font-bold text-4xl text-white">
@@ -129,7 +183,7 @@ export default function Home() {
               How it works
             </h1>
           </div>
-        </div>
+        </div> */}
         <div className="bg-gold p-8">
           <div className="container flex flex-col max-w-4xl mx-auto justify-center items-center">
             <h1 className="uppercase font-condensed font-bold text-4xl sm:text-7xl text-black">
