@@ -17,7 +17,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <div className="bg-black overflow-hidden">
+        {/* <div className="bg-black overflow-hidden">
           <div className="relative isolate px-6 pt-14 lg:px-8">
             <div className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80">
               <svg
@@ -38,7 +38,6 @@ export default function Home() {
                     y2="474.645"
                     gradientUnits="userSpaceOnUse"
                   >
-                    {/* <stop stopColor="#9089FC" /> */}
                     <stop stopColor="#E0C56E" />
                     <stop offset={1} stopColor="#FF80B5" />
                   </linearGradient>
@@ -94,7 +93,6 @@ export default function Home() {
                     y2="474.645"
                     gradientUnits="userSpaceOnUse"
                   >
-                    {/* <stop stopColor="#9089FC" /> */}
                     <stop stopColor="#E0C56E" />
                     <stop offset={1} stopColor="#FF80B5" />
                   </linearGradient>
@@ -102,12 +100,12 @@ export default function Home() {
               </svg>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div>
-          <div className="flex flex-row max-w-7xl mx-auto bg-gold">
+        <div className="bg-gold">
+          <div className="flex flex-row max-w-7xl mx-auto py-10">
             <div className="w-1/2 relative">
-              <h2 className="uppercase font-condensed font-bold text-7xl">
+              <h2 className="uppercase font-condensed font-bold text-8xl">
                 Pay tuition.<br />Earn rewards.<br />Repeat.
               </h2>
               <p className="font-mono">
@@ -204,6 +202,14 @@ export default function Home() {
           </div>
         </div>
 
+        <div className="bg-defgray py-10">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="uppercase font-condensed font-bold text-7xl text-gold text-center">
+              Next gen mobile experience.
+            </h2>
+          </div>
+        </div>
+
         <div className="bg-black py-10">
           <div className="max-w-7xl mx-auto">
             <h2 className="uppercase font-condensed font-bold text-7xl text-white text-center">
@@ -241,7 +247,7 @@ export default function Home() {
         <div className="bg-gold p-8">
           <div className="container flex flex-col max-w-4xl mx-auto justify-center items-center">
             <h1 className="uppercase font-condensed font-bold text-4xl sm:text-7xl text-black">
-              Join the waitlist
+              Join the waitlist.
             </h1>
             <p className="font-mono text-md text-black">
               Be the first to hear about exclusive offers and updates from Crux.

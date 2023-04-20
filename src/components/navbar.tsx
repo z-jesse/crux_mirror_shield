@@ -12,7 +12,7 @@ import { RootState } from '../../state/store'
 
 const navigation = [
   { name: 'Home', href: '/' },
-  { name: 'Card', href: '/card' },
+  // { name: 'Card', href: '/card' },
   // { name: 'Rewards', href: '/rewards' },
   // { name: 'Schools', href: '/school' },
   // { name: 'Dash', href: '/dashboard' },
