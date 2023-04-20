@@ -106,19 +106,27 @@ export default function Home() {
 
         <div>
           <div className="flex flex-row max-w-7xl mx-auto bg-gold">
-            <div className="w-1/2">
+            <div className="w-1/2 relative">
               <h2 className="uppercase font-condensed font-bold text-7xl">
                 Pay tuition.<br />Earn rewards.<br />Repeat.
               </h2>
               <p className="font-mono">
                 The first credit card for students and parents that helps you pay for school.
               </p>
-              <Link href="/waitlist" className="font-mono">
-                Sign Up
+              <Link href="/waitlist">
+              <button className="uppercase border border-black hover:bg-black text-black hover:text-white font-mono py-2 px-20" type="submit">
+                Sign up
+              </button>
               </Link>
+              
             </div>
-            <div className="w-1/2 bg-green-200">
-              <p>Image</p>
+            <div className="w-1/2 bg-green-200 relative">
+              <Image 
+                className="object-cover object-center"
+                src="/school-ai.jpg"
+                alt="School"
+                fill
+              />
             </div>
           </div>
         </div>
@@ -139,6 +147,11 @@ export default function Home() {
             <div className="flex max-w-xl mx-auto justify-center">
               <video autoPlay muted loop src="/cruxcardv2.mp4"/>
             </div>
+            <div className="max-w-xl mx-auto">
+              <p className="font-mono text-gold text-xl">// &#62; All metal. All awesome.</p>
+              <p className="font-mono text-gold text-xl">// &#62; No annual fee. Free to use.</p>
+              <p className="font-mono text-gold text-xl">// &#62; Tap to pay. Like magic.</p>
+            </div>   
           </div>
         </div>
 
@@ -147,6 +160,47 @@ export default function Home() {
             <h2 className="uppercase font-condensed font-bold text-7xl text-center">
               Rewards like no other.
             </h2>
+            <div className="flex flex-col sm:flex-row">
+              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
+                <div className="relative w-full aspect-square">
+                  <Image 
+                    className="object-cover object-center rounded-full"
+                    src="/school.jpg"
+                    alt="School"
+                    fill
+                  />
+                </div>
+                <p className="font-mono text-center text-l">
+                  Earn points when you pay tuition.
+                </p>
+              </div>
+              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
+                <div className="relative w-full aspect-square">
+                  <Image 
+                    className="object-cover object-center rounded-full"
+                    src="/travel.jpg"
+                    alt="Travel"
+                    fill
+                  />
+                </div>
+                <p className="font-mono text-center text-l">
+                  Redeem for tuition, at stores, or on travel.
+                </p>
+              </div>
+              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
+                <div className="relative w-full aspect-square">
+                  <Image 
+                    className="object-cover object-center rounded-full"
+                    src="/shop.jpg"
+                    alt="Shopping"
+                    fill
+                  />
+                </div>
+                <p className="font-mono text-center text-l">
+                  Refer a friend for even more rewards.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -192,12 +246,12 @@ export default function Home() {
             <p className="font-mono text-md text-black">
               Be the first to hear about exclusive offers and updates from Crux.
             </p>
-            <div className="w-full">
+            <div className="w-full pt-4">
               <form>
-                <div className="px-3 mb-3">
+                {/* <div className="px-3 mb-3">
                   <label className="block font-mono" htmlFor="email">Email *</label>
                   <input className="block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono" id="email" type="text" placeholder="example@cruxrewards.com"/>
-                </div>
+                </div> */}
                 <div className="flex justify-center">
                   <Link href="/waitlist">
                   <button className="uppercase border border-black hover:bg-black text-black hover:text-white font-mono py-2 px-20" type="submit">

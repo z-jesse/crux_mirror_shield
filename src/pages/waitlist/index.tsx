@@ -5,7 +5,7 @@ export default function Waitlist() {
   return (
     <FormLayout>
       {/* <div className="h-[100px]"></div> */}
-      <div className='w-full'>
+      <div className='w-full py-4'>
         {/* <div className='md:w-1/2'>
           <h1 className='uppercase font-condensed font-bold text-6xl text-gold'>
             Waitlist
@@ -18,7 +18,7 @@ export default function Waitlist() {
           <WaitlistForm />
         </div> */}
         <iframe
-          className="w-full h-[860px]"
+          className="w-full h-[890px]"
           src="https://docs.google.com/forms/d/e/1FAIpQLScQ9glpkyfBr5amhLjG0k8rKlMnq2Fc5MJOnLgcmo6CNKTbqQ/viewform?embedded=true" 
           >
             Loading…
