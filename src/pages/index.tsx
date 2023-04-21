@@ -18,22 +18,27 @@ export default function Home() {
 
       <main>
         <div className="bg-gold">
-          <div className="flex flex-row max-w-7xl mx-auto py-10">
-            <div className="w-1/2 relative">
-              <h2 className="uppercase font-condensed font-bold text-8xl">
+          <div className="flex flex-col md:flex-row max-w-7xl mx-auto py-10">
+            <div className="w-full md:w-1/2 relative">
+              <h2 className="uppercase font-condensed font-bold text-7xl sm:text-8xl">
                 Pay tuition.<br />Earn rewards.<br />Repeat.
               </h2>
               <p className="font-mono">
                 The first credit card for students and parents that helps you pay for school.
               </p>
-              <Link href="/waitlist">
-              <button className="uppercase border border-black hover:bg-black text-black hover:text-white font-mono py-2 px-20" type="submit">
-                Sign up
-              </button>
-              </Link>
+              <div className="flex items-center gap-x-6">
+                <Link href="/waitlist">
+                <button className="uppercase border border-black hover:bg-black text-black hover:text-white font-mono py-2 px-16" type="submit">
+                  Sign up
+                </button>
+                </Link>
+                <Link href="/school" className="font-mono hover:underline">
+                  Representing a School?
+                </Link>
+              </div>
               
             </div>
-            <div className="w-1/2 bg-green-200 relative">
+            <div className="w-full md:w-1/2 relative aspect-square">
               <Image 
                 className="object-cover object-center"
                 src="/school-ai.jpg"
@@ -46,7 +51,7 @@ export default function Home() {
 
         <div className="bg-defgray py-10">
           <div className="max-w-7xl mx-auto">
-            <h2 className="uppercase font-condensed font-bold text-7xl text-gold text-center">
+            <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-gold text-center">
               How it works.
             </h2>
           </div>
@@ -54,28 +59,28 @@ export default function Home() {
 
         <div className="bg-black py-10">
           <div className="max-w-7xl mx-auto">
-            <h2 className="uppercase font-condensed font-bold text-7xl text-white text-center">
+            <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-white text-center">
               Refined design.
             </h2>
             <div className="flex max-w-xl mx-auto justify-center">
               <video autoPlay muted loop src="/cruxcardv2.mp4"/>
             </div>
             <div className="max-w-xl mx-auto">
-              <p className="font-mono text-gold text-xl">&#47;&#47;&#62; All metal. All awesome.</p>
-              <p className="font-mono text-gold text-xl">&#47;&#47;&#62; No annual fee. Free to use.</p>
-              <p className="font-mono text-gold text-xl">&#47;&#47;&#62; Tap to pay. Like magic.</p>
+              <p className="font-mono text-gold text-xl">&#47;&#47; &#62; All metal. All awesome.</p>
+              <p className="font-mono text-gold text-xl">&#47;&#47; &#62; No annual fee. Free to use.</p>
+              <p className="font-mono text-gold text-xl">&#47;&#47; &#62; Tap to pay. Like magic.</p>
             </div>   
           </div>
         </div>
 
         <div className="bg-gold py-10">
           <div className="max-w-7xl mx-auto">
-            <h2 className="uppercase font-condensed font-bold text-7xl text-center">
+            <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-center">
               Rewards like no other.
             </h2>
             <div className="flex flex-col sm:flex-row">
-              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
-                <div className="relative w-full aspect-square">
+              <div className="flex flex-col w-full sm:w-1/3 items-center sm:m-6">
+                <div className="relative w-1/2 sm:w-full aspect-square">
                   <Image 
                     className="object-cover object-center rounded-full"
                     src="/school.jpg"
@@ -87,8 +92,8 @@ export default function Home() {
                   Earn points when you pay tuition.
                 </p>
               </div>
-              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
-                <div className="relative w-full aspect-square">
+              <div className="flex flex-col w-full sm:w-1/3 items-center sm:m-6">
+                <div className="relative w-1/2 sm:w-full aspect-square">
                   <Image 
                     className="object-cover object-center rounded-full"
                     src="/travel.jpg"
@@ -100,8 +105,8 @@ export default function Home() {
                   Redeem for tuition, at stores, or on travel.
                 </p>
               </div>
-              <div className="flex flex-col w-full md:w-1/3 items-center m-4">
-                <div className="relative w-full aspect-square">
+              <div className="flex flex-col w-full sm:w-1/3 items-center sm:m-6">
+                <div className="relative w-1/2 sm:w-full aspect-square">
                   <Image 
                     className="object-cover object-center rounded-full"
                     src="/shop.jpg"
@@ -119,7 +124,7 @@ export default function Home() {
 
         <div className="bg-defgray py-10">
           <div className="max-w-7xl mx-auto">
-            <h2 className="uppercase font-condensed font-bold text-7xl text-gold text-center">
+            <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-gold text-center">
               Next gen mobile experience.
             </h2>
           </div>
@@ -127,7 +132,7 @@ export default function Home() {
 
         <div className="bg-black py-10">
           <div className="max-w-7xl mx-auto">
-            <h2 className="uppercase font-condensed font-bold text-7xl text-white text-center">
+            <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-white text-center">
               Build credit.
             </h2>
           </div>
@@ -161,7 +166,7 @@ export default function Home() {
         </div> */}
         <div className="bg-gold p-8">
           <div className="container flex flex-col max-w-4xl mx-auto justify-center items-center">
-            <h1 className="uppercase font-condensed font-bold text-4xl sm:text-7xl text-black">
+            <h1 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-black">
               Join the waitlist.
             </h1>
             <p className="font-mono text-md text-black">

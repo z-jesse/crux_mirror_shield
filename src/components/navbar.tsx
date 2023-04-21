@@ -12,6 +12,7 @@ import { RootState } from '../../state/store'
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'Schools', href: '/school' },
   // { name: 'Card', href: '/card' },
   // { name: 'Rewards', href: '/rewards' },
   // { name: 'Schools', href: '/school' },
@@ -160,7 +161,7 @@ export default function Navbar() {
                 </div>} */}
               <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
                 <Link href="/waitlist" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
-                    Join the waitlist <span aria-hidden="true">&rarr;</span>
+                    Join the waitlist
                 </Link>
               </div>
             </div>
