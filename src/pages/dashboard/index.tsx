@@ -15,7 +15,6 @@ import Image from "next/image";
 export default function Dashboard() {
 
   const user = useSelector((state: RootState) => state.user);
-  console.log("user is", user)
 
   useEffect(() => {
     if (!user.authenticated) {
@@ -42,7 +41,7 @@ export default function Dashboard() {
       <div className='container mx-auto relative'>
         
         <div className='flex justify-center'>
-          <p className='uppercase font-condensed text-4xl text-white'>Good Evening, Brandon.</p>
+          <p className='uppercase font-condensed text-4xl text-white'>Good Evening, {"email" in user.user? user.user.email : "chicken"}.</p>
           <div className='h-[200px]'></div>
         </div>
 
