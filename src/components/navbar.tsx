@@ -16,7 +16,7 @@ const navigation = [
   // { name: 'Card', href: '/card' },
   // { name: 'Rewards', href: '/rewards' },
   // { name: 'Schools', href: '/school' },
-  // { name: 'Dash', href: '/dashboard' },
+  { name: 'Dash', href: '/dashboard' },
 ]
 
 function classNames(...classes: any) {
@@ -153,17 +153,17 @@ export default function Navbar() {
                   </Transition>
                 </Menu>
               </div>}
-              {/* {!loggedIn &&
+              {!loggedIn &&
                 <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
                   <Link href="/onboarding/login" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
                       Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
-                </div>} */}
-              <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
+                </div>}
+              {/* <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
                 <Link href="/waitlist" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
                     Join the waitlist
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
 
