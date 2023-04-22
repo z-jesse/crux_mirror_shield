@@ -54,6 +54,12 @@ export default function Home() {
             <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-gold text-center">
               How it works.
             </h2>
+            <div className="max-w-4xl mx-auto">
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Register your school through our portal.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Use our generated ACH account when you sign up for courses.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Use your Crux Card for at least 5 transactions a month.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Earn points on any tuition you paid that month.</p>
+            </div>
           </div>
         </div>
 
@@ -127,6 +133,12 @@ export default function Home() {
             <h2 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-gold text-center">
               Next gen mobile experience.
             </h2>
+            <div className="max-w-4xl mx-auto">
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Manage your account anytime, anywhere.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Create an unlimited amount of virtual cards.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; See how much interest you would pay, before you pay.</p>
+              <p className="font-mono text-white text-xl">&#47;&#47; &#62; Cancel subscriptions with the tap of a button.</p>
+            </div>
           </div>
         </div>
 
@@ -138,32 +150,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* <div className="bg-black">
-          <div className="flex flex-col md:flex-row max-w-4xl mx-auto">
-            <div className="flex flex-col w-full md:w-3/4 justify-center items-center">
-              <h2 className="uppercase font-condensed font-bold text-4xl text-white">
-                Take control of your money, anytime, anywhere, with just a tap on your phone.
-              </h2>
-            </div>
-            <div className="w-full md:w-1/4 m-4">
-              <Image
-                className="rounded-full"
-                src="/phone.jpg"
-                alt="Next.js Logo"
-                width={300}
-                height={300}
-                priority
-              />
-            </div>
-          </div>
-        </div>
-        <div className="bg-defgray p-6">
-          <div className="flex flex-col md:flex-row max-w-4xl mx-auto">
-            <h1 className="uppercase font-condensed font-bold text-gold text-4xl sm:text-7xl">
-              How it works
-            </h1>
-          </div>
-        </div> */}
         <div className="bg-gold p-8">
           <div className="container flex flex-col max-w-4xl mx-auto justify-center items-center">
             <h1 className="uppercase font-condensed font-bold text-5xl sm:text-7xl text-black">
