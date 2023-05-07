@@ -20,13 +20,13 @@ export default function Dashboard() {
     if (!user.authenticated) {
       Router.push("/onboarding/login");
     } else {
-      if (!("status" in user.user) || user.user.status === "onboarding") {
+      if (user.user.status === "onboarding") {
           Router.push('/onboarding/user-details')
       }
     }
   })
 
-  if (!("status" in user.user) || user.user.status !== "active") {
+  if (user.user.status !== "active") {
     return <h1> Loading </h1>
   }
   return (
@@ -41,7 +41,9 @@ export default function Dashboard() {
       <div className='container mx-auto relative'>
         
         <div className='flex justify-center'>
-          <p className='uppercase font-condensed text-4xl text-white'>Good Evening, {"email" in user.user? user.user.email : "chicken"}.</p>
+          <p className='uppercase font-condensed text-4xl text-white'>
+            Good Evening {user.user.email}
+          </p>
           <div className='h-[200px]'></div>
         </div>
 

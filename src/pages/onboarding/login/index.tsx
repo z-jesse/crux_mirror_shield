@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { initUser } from '../../../../state/slices/userSlice';
+import { fetchPaymentMethods } from '@state/slices/payment_methodSlice';
 import type { RootState } from '../../../../state/store';
 
 export default function Login() {
@@ -12,7 +13,7 @@ export default function Login() {
 
     useEffect(() => {
         if (user.authenticated) {
-            if (!("status" in user.user) || user.user.status === "onboarding") {
+            if (user.user.status === "onboarding") {
                 Router.push('/onboarding/user-details')
             } else {
                 Router.push("/dashboard/profile");
@@ -32,7 +33,7 @@ export default function Login() {
         }, { withCredentials: true } ).then((res) => {
             if (res.data.status === "success") {
                 dispatch(initUser());
-                //dispatch(updateUserState({authenticated: true}))
+                dispatch(fetchPaymentMethods())
             }
             Router.push("/dashboard/profile");
         })
