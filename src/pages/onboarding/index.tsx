@@ -1,28 +1,14 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import Router from 'next/router';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../../../state/store';
+import { CREATE_USER } from '@/graphql/mutations/onboarding';
+import { GET_ACCOUNT_INFO } from '@/graphql/mutations/account';
+import { useMutation, useQuery } from '@apollo/client';
 
 export default function SignUp() {
+    const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);
+    const [createUser, { data, loading, error }] = useMutation(CREATE_USER);
 
-    const user = useSelector((state: RootState) => state.user);
-
-    useEffect(() => {
-        if (user.authenticated) {
-            if (!("status" in user.user) || user.user.status === "onboarding") {
-                Router.push('/onboarding/user-details')
-            } else {
-                Router.push("/dashboard/profile");
-            }
-        }
-    })
-
-    if (user.authenticated === undefined) {
-        return null;
-    }
-
-    function registerUser(e :any) {
+    async function registerUser(e :any) {
         e.preventDefault();
 
         const email = e.target.email.value;
@@ -30,14 +16,27 @@ export default function SignUp() {
         const confirm_password = e.target.confirm_password.value;
 
         if (validateParams(email, password, confirm_password)) {
-            axios.post(`http://localhost:3001/api/v1/onboarding/register_user`, {
-                email: email,
-                password: password,
-            }).then((_) => {
-                Router.push("/onboarding/login");
-            })
+            const authProvider = {
+                credentials: {
+                    email: email,
+                    password: password
+                }
+            }
+            const response = await createUser({ variables: { authProvider }});
+            Router.push("/onboarding/login");
         }
     }
+
+    useEffect(() => {
+        if (queryData && queryData.getAccountInfo) {
+            if (queryData.getAccountInfo.status === "ONBOARDING") {
+                Router.push('/onboarding/user-details')
+            } else {
+                Router.push("/dashboard/profile");
+            }
+        }
+    })
+
 
     function validateParams(email:string, password:string, confirm_password:string): boolean  {
         const refinedEmail = email.trim().toLowerCase();

@@ -4,10 +4,8 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Space_Mono, Barlow_Condensed } from 'next/font/google'
 
-import { Provider } from 'react-redux'
-import { store, persistor } from '../../state/store'
-import { PersistGate } from 'redux-persist/integration/react';
-
+import { ApolloProvider } from "@apollo/client";
+import client from "../../apollo-client"
 
 const barlow_condensed = Barlow_Condensed({
   weight: ['400', '600'],
@@ -23,11 +21,9 @@ const space_mono = Space_Mono({
 
 export default function RootContextProvider(props: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App {...props} />
-      </PersistGate>
-    </Provider>
+    <ApolloProvider client={client}>
+          <App {...props} />
+    </ApolloProvider>
   )
 }
 

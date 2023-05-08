@@ -1,19 +1,20 @@
 import React, { useEffect } from 'react'
-import axios from 'axios'
 import Router from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { initUser } from '../../../../state/slices/userSlice';
-import { fetchPaymentMethods } from '@state/slices/payment_methodSlice';
-import type { RootState } from '../../../../state/store';
+import { useMutation, useQuery } from '@apollo/client';
+import { SIGNIN_USER } from '@/graphql/mutations/authentication';
+import { GET_ACCOUNT_INFO } from '@/graphql/mutations/account';
 
 export default function Login() {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-    const user = useSelector((state: RootState) => state.user);
+    const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);
+    const [signinUser, { data, loading, error }] = useMutation(SIGNIN_USER, {
+        refetchQueries: [
+          GET_ACCOUNT_INFO
+        ],
+      });
 
     useEffect(() => {
-        if (user.authenticated) {
-            if (user.user.status === "onboarding") {
+        if (queryData && queryData.getAccountInfo) {
+            if (queryData.getAccountInfo.status === "ONBOARDING") {
                 Router.push('/onboarding/user-details')
             } else {
                 Router.push("/dashboard/profile");
@@ -27,16 +28,11 @@ export default function Login() {
         const email = e.target.email.value;
         const password = e.target.password.value;
 
-        axios.post(`http://localhost:3001/api/v1/auth/login`, {
+        const credentials = {
             email: email,
-            password: password,
-        }, { withCredentials: true } ).then((res) => {
-            if (res.data.status === "success") {
-                dispatch(initUser());
-                dispatch(fetchPaymentMethods())
-            }
-            Router.push("/dashboard/profile");
-        })
+            password: password
+        }
+        signinUser({ variables: { credentials }})
     }
 
     return (

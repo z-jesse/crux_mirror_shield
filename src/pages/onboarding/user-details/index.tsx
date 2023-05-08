@@ -1,29 +1,31 @@
 import React, { useEffect } from "react";
-import axios from "axios";
 import Router from "next/router";
+import { CONFIRM_EMAIL } from "@/graphql/mutations/onboarding";
+import { useMutation, useQuery } from "@apollo/client";
+import { UPDATE_USER_DETAIL } from "@/graphql/mutations/account";
+import { GET_ACCOUNT_INFO } from "@/graphql/mutations/account";
 
-import { useSelector } from "react-redux";
-import { RootState } from "@/../state/store";
-import { useDispatch } from "react-redux";
-import { ThunkDispatch } from 'redux-thunk';
-
-import { initUser } from "../../../../state/slices/userSlice";
 
 export default function UserDetails() {
-    const user = useSelector((state: RootState) => state.user);
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);
+    const [updateUserDetail, { data, loading, error }] = useMutation(UPDATE_USER_DETAIL, {
+        refetchQueries: [
+          GET_ACCOUNT_INFO
+        ],
+      });
 
     useEffect(() => {
-        if (!user.authenticated) {
+        if (!queryData) {
             Router.push('/onboarding/login');
         } else {
-            if (user.user.status === "active") {
+            if (queryData.getAccountInfo.status === "ACTIVE") {
                 Router.push('/dashboard')
             }
         }
     })
 
-    async function updateUserInformation(e :any) {
+
+    function updateUserInformation(e :any) {
         e.preventDefault();
         
         const first = e.target.firstName.value;
@@ -39,33 +41,29 @@ export default function UserDetails() {
         const country = e.target.country.value;
         const ssn = e.target.ssn.value;
 
-        if (validateParams(first, last, dob, phone)) {
-            axios.post(`http://localhost:3001/api/v1/onboarding/update-user-information`, {
-                id: "id" in user.user? user.user.id: 0,
-                first_name: first,
-                middle_name: middle,
-                last_name: last,
-                dob: dob,
-                phone: phone,
-                street: street,
-                street2: street2,
-                city: city,
-                state: state,
-                postalCode: postalCode,
-                country: country,
-                ssn: ssn,
-            }, { withCredentials: true } ).then(async (res) => {
-                await dispatch(initUser());
-                Router.push("/dashboard")
-            })
+        const userInformation = {
+            phone: phone,
+            firstName: first,
+            lastName: last,
+            dob: dob,
+            middleName: middle,
+            city: city,
+            country: country,
+            postalCode: Number(postalCode),
+            region: state,
+            street: street,
+            street2: street2,
+            govId: Number(ssn)
         }
+
+        updateUserDetail({ variables: { userInformation }})
     }
 
     function validateParams(first: string, last: string, dob: Date, phone: string): boolean {
         return true;
     }
 
-    if (!user.user.email_confirmed) {
+    if (queryData && !queryData.getAccountInfo.emailConfirmed) {
         return <ConfirmEmail/>
     }
 
@@ -138,20 +136,22 @@ export default function UserDetails() {
 }
 
 function ConfirmEmail() {
-    const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
+    const [confirmEmail, { data, loading, error }] = useMutation(CONFIRM_EMAIL, {
+        refetchQueries: [
+          GET_ACCOUNT_INFO
+        ],
+      });
 
-    async function confirmEmail(e :any) {
-        e.preventDefault()
+    async function confirmEmailHandler(e :any) {
+        e.preventDefault();
 
-        axios.post(`http://localhost:3001/api/v1/onboarding/confirm-email`, {
-            confirmation_token: e.target.token.value,
-            }, { withCredentials: true } ).then(async (res) => {
-                await dispatch(initUser())
-            })
+        const confirmationToken = e.target.token.value;
+
+        const response = await confirmEmail({ variables: { confirmationToken }});
     }
 
     return <>
-        <form onSubmit={confirmEmail}>
+        <form onSubmit={confirmEmailHandler}>
             <div className='flex flex-wrap'>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                     <label className='block font-mono text-white' htmlFor="grid-first-name">Confirmation Token</label>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../state/store";
 import Router from "next/router";
+import { GET_ACCOUNT_INFO } from "@/graphql/mutations/account";
+import { useQuery } from "@apollo/client";
 
 import BasicCard from "@/components/dashboard/BasicCard";
 import BigCard from "@/components/dashboard/BigCard";
@@ -13,22 +13,24 @@ import SmallCard from "@/components/dashboard/SmallCard";
 import Image from "next/image";
 
 export default function Dashboard() {
-
-  const user = useSelector((state: RootState) => state.user);
+  const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);
 
   useEffect(() => {
-    if (!user.authenticated) {
-      Router.push("/onboarding/login");
-    } else {
-      if (user.user.status === "onboarding") {
-          Router.push('/onboarding/user-details')
+    if (!queryLoading) {
+      if (!queryData.getAccountInfo) {
+        Router.push("/onboarding/login");
+      } else {
+        if (queryData.getAccountInfo.status === "ONBOARDING") {
+            Router.push('/onboarding/user-details')
+        }
       }
     }
   })
 
-  if (user.user.status !== "active") {
+  if (queryLoading) {
     return <h1> Loading </h1>
   }
+
   return (
     <div className='grow relative'>
       <Image 
@@ -42,7 +44,7 @@ export default function Dashboard() {
         
         <div className='flex justify-center'>
           <p className='uppercase font-condensed text-4xl text-white'>
-            Good Evening {user.user.email}
+            Good Evening {queryData.getAccountInfo.email}
           </p>
           <div className='h-[200px]'></div>
         </div>

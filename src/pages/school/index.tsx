@@ -1,5 +1,7 @@
 import FormLayout from "@/components/form_layout";
 import { useState } from "react";
+import { useQuery, gql } from "@apollo/client";
+import client from "../../../apollo-client";
 
 export default function School() {
   const [name, setName] = useState('');
@@ -22,6 +24,19 @@ export default function School() {
     // })
   }
 
+  const GET_USERS = gql`
+    query GetUsers {
+      users {
+        id
+      }
+    }
+  `
+
+  async function GraphQLCall() {
+    const response = await client.query({query:GET_USERS});
+    console.log(response)
+  }
+
   return (
     <>
     <div className="grow bg-defgray">
@@ -33,6 +48,7 @@ export default function School() {
                 Whether you&#39;re a K-12 private school, community college, or a four-year university, Crux has a solution for you.
             </p>
         </div>
+        <button onClick={GraphQLCall}> get users </button>
     </div>
     </>
   )
