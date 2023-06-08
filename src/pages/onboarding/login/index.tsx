@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Router from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
 import { SIGNIN_USER } from '@/graphql/mutations/authentication';
-import { GET_ACCOUNT_INFO } from '@/graphql/mutations/account';
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account';
 
 export default function Login() {
     const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Router from 'next/router';
 import { CREATE_USER } from '@/graphql/mutations/onboarding';
-import { GET_ACCOUNT_INFO } from '@/graphql/mutations/account';
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account';
 import { useMutation, useQuery } from '@apollo/client';
 
 export default function SignUp() {

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Router from "next/router";
-import { GET_ACCOUNT_INFO } from "@/graphql/mutations/account";
+import { GET_ACCOUNT_INFO } from "@/graphql/queries/account";
 import { useQuery } from "@apollo/client";
 
 import BasicCard from "@/components/dashboard/BasicCard";

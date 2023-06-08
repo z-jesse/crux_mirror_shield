@@ -3,9 +3,11 @@ import Layout from '@/components/layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Space_Mono, Barlow_Condensed } from 'next/font/google'
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account'
 
 import { ApolloProvider } from "@apollo/client";
 import client from "../../apollo-client"
+import { useQuery } from "@apollo/client";
 
 const barlow_condensed = Barlow_Condensed({
   weight: ['400', '600'],
@@ -28,6 +30,7 @@ export default function RootContextProvider(props: AppProps) {
 }
 
 function App({ Component, pageProps }: AppProps) {
+  const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(GET_ACCOUNT_INFO);
 
   return (
     <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>

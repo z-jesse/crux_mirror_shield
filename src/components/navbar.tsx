@@ -5,8 +5,9 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useMutation, useQuery } from '@apollo/client'
-import { GET_ACCOUNT_INFO } from '@/graphql/mutations/account'
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account'
 import { SIGNOUT_USER } from '@/graphql/mutations/authentication'
+import client from '../../apollo-client'
 
 const navigation = [
   { name: 'Home', href: '/' },

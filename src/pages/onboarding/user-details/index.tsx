@@ -3,7 +3,7 @@ import Router from "next/router";
 import { CONFIRM_EMAIL } from "@/graphql/mutations/onboarding";
 import { useMutation, useQuery } from "@apollo/client";
 import { UPDATE_USER_DETAIL } from "@/graphql/mutations/account";
-import { GET_ACCOUNT_INFO } from "@/graphql/mutations/account";
+import { GET_ACCOUNT_INFO } from "@/graphql/queries/account";
 
 
 export default function UserDetails() {
@@ -68,6 +68,7 @@ export default function UserDetails() {
     }
 
     return (
+        <>
         <form onSubmit={updateUserInformation}>
             <div className='flex flex-wrap'>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
@@ -132,6 +133,9 @@ export default function UserDetails() {
                 <button className='uppercase bg-gold hover:bg-white text-black font-mono py-2 px-20' type='submit'>Input Information</button>
             </div>
         </form>
+                    <button onClick={() => Router.push('/onboarding')}>yolo wu</button>
+
+                    </>
     )
 }
 
