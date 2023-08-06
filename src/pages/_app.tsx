@@ -9,6 +9,8 @@ import { ApolloProvider } from "@apollo/client";
 import client from "../../apollo-client"
 import { useQuery } from "@apollo/client";
 
+import HandleRoute from "@/components/handle_route";
+
 const barlow_condensed = Barlow_Condensed({
   weight: ['400', '600'],
   subsets: ['latin'],
@@ -35,7 +37,10 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
       <Layout>
-        <Component {...pageProps} />
+        <HandleRoute
+          Component={Component}
+          pageProps={pageProps}
+        />
       </Layout>
     </main>
   )

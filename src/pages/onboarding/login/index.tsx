@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Router from 'next/router';
+import {useRouter} from 'next/router';
 import { useMutation, useQuery } from '@apollo/client';
 import { SIGNIN_USER } from '@/graphql/mutations/authentication';
 import { GET_ACCOUNT_INFO } from '@/graphql/queries/account';
@@ -11,16 +11,7 @@ export default function Login() {
           GET_ACCOUNT_INFO
         ],
       });
-
-    useEffect(() => {
-        if (queryData && queryData.getAccountInfo) {
-            if (queryData.getAccountInfo.status === "ONBOARDING") {
-                Router.push('/onboarding/user-details')
-            } else {
-                Router.push("/dashboard/profile");
-            }
-        }
-    })
+    const router = useRouter();
 
     function login(e :any) {
         e.preventDefault();
@@ -54,6 +45,7 @@ export default function Login() {
             <div className='flex justify-center items-center mb-3'>
                 <button className='uppercase bg-gold hover:bg-white text-black font-mono py-2 px-20' type='submit'>Sign up</button>
             </div>
+            <button onClick={() => router.push("/onboarding")}>Sign up here</button>
         </form>
     )
 }

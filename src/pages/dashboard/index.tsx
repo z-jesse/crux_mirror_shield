@@ -15,22 +15,6 @@ import Image from "next/image";
 export default function Dashboard() {
   const { loading: queryLoading, error: queryError, data: queryData } = useQuery(GET_ACCOUNT_INFO);
 
-  useEffect(() => {
-    if (!queryLoading) {
-      if (!queryData.getAccountInfo) {
-        Router.push("/onboarding/login");
-      } else {
-        if (queryData.getAccountInfo.status === "ONBOARDING") {
-            Router.push('/onboarding/user-details')
-        }
-      }
-    }
-  })
-
-  if (queryLoading) {
-    return <h1> Loading </h1>
-  }
-
   return (
     <div className='grow relative'>
       <Image 

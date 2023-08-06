@@ -14,16 +14,6 @@ export default function UserDetails() {
         ],
       });
 
-    useEffect(() => {
-        if (!queryData) {
-            Router.push('/onboarding/login');
-        } else {
-            if (queryData.getAccountInfo.status === "ACTIVE") {
-                Router.push('/dashboard')
-            }
-        }
-    })
-
 
     function updateUserInformation(e :any) {
         e.preventDefault();
@@ -63,7 +53,7 @@ export default function UserDetails() {
         return true;
     }
 
-    if (queryData && !queryData.getAccountInfo.emailConfirmed) {
+    if (queryData && queryData.getAccountInfo && !queryData.getAccountInfo.emailConfirmed) {
         return <ConfirmEmail/>
     }
 

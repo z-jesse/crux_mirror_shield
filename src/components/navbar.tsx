@@ -39,10 +39,6 @@ export default function Navbar() {
     router.push('/');
   }
 
-  if (loading || queryLoading) {
-    return <h1> Loading... </h1>
-  }
-
   return (
     <Disclosure as="nav" className="bg-black">
       {({ open }) => (
