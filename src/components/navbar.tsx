@@ -4,11 +4,10 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
-import axios from 'axios'
-
-import { useDispatch, useSelector } from 'react-redux'
-import { updateUserState } from '../../state/slices/userSlice'
-import { RootState } from '../../state/store'
+import { useMutation, useQuery } from '@apollo/client'
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account'
+import { SIGNOUT_USER } from '@/graphql/mutations/authentication'
+import client from '../../apollo-client'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -24,23 +23,20 @@ function classNames(...classes: any) {
 }
 
 export default function Navbar() {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.user);
-  const loggedIn = user.authenticated;
+  const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(GET_ACCOUNT_INFO);
+  const [signoutUser, { data, loading, error }] = useMutation(SIGNOUT_USER, {
+    refetchQueries: [
+      GET_ACCOUNT_INFO
+    ],
+  });
 
-  function logout() {
-    axios.get(`http://localhost:3001/api/v1/auth/logout`, { withCredentials: true }).then((res) => {
-        if (res.data.status == "success") {
-          const user = {
-            authenticated: false,
-            user: {},
-            user_details: {},
-          }
-          dispatch(updateUserState(user));
-          router.push('/');
-        }
-    })
+  const router = useRouter();
+  const loggedIn = queryData !== undefined && queryData.getAccountInfo !== null;
+
+  async function logout() {
+    const response = await signoutUser();
+    await refetch();
+    router.push('/');
   }
 
   return (

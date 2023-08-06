@@ -3,11 +3,13 @@ import Layout from '@/components/layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Space_Mono, Barlow_Condensed } from 'next/font/google'
+import { GET_ACCOUNT_INFO } from '@/graphql/queries/account'
 
-import { Provider } from 'react-redux'
-import { store, persistor } from '../../state/store'
-import { PersistGate } from 'redux-persist/integration/react';
+import { ApolloProvider } from "@apollo/client";
+import client from "../../apollo-client"
+import { useQuery } from "@apollo/client";
 
+import HandleRoute from "@/components/handle_route";
 
 const barlow_condensed = Barlow_Condensed({
   weight: ['400', '600'],
@@ -23,20 +25,22 @@ const space_mono = Space_Mono({
 
 export default function RootContextProvider(props: AppProps) {
   return (
-    <Provider store={store}>
-      <PersistGate persistor={persistor}>
-        <App {...props} />
-      </PersistGate>
-    </Provider>
+    <ApolloProvider client={client}>
+          <App {...props} />
+    </ApolloProvider>
   )
 }
 
 function App({ Component, pageProps }: AppProps) {
+  const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(GET_ACCOUNT_INFO);
 
   return (
     <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
       <Layout>
-        <Component {...pageProps} />
+        <HandleRoute
+          Component={Component}
+          pageProps={pageProps}
+        />
       </Layout>
     </main>
   )
