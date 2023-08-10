@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import EmailPassForm from "./steps/email-pass-form";
 import ConfirmEmailForm from "./steps/confirm-email-form";
 import ApplicationForm from "./steps/application-form";
+import FormLayout from "./steps/wrapper";
 
 function getStepNumber(data: any) {
     if (!data.getAccountInfo) {
@@ -67,7 +68,9 @@ export default function OnboardingWizard() {
         ) : null;
 
     return <>
-        {currentStep}
+        <FormLayout>
+            {currentStep}
+        </FormLayout>
         <ButtonPrev/>
         <ButtonNext/>
     </>

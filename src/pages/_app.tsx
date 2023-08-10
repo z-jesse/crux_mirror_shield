@@ -2,7 +2,7 @@ import React from "react";
 import Layout from '@/components/layout'
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Space_Mono, Barlow_Condensed } from 'next/font/google'
+import { Space_Mono, Barlow_Condensed, Roboto_Condensed, Roboto_Mono, Bebas_Neue } from 'next/font/google'
 import { GET_ACCOUNT_INFO } from '@/graphql/queries/account'
 
 import { ApolloProvider } from "@apollo/client";
@@ -17,10 +17,28 @@ const barlow_condensed = Barlow_Condensed({
   variable: '--font-barlow-condensed',
 })
 
-const space_mono = Space_Mono({
-  weight: ['400', '700'],
+// const space_mono = Space_Mono({
+//   weight: ['400', '700'],
+//   subsets: ['latin'],
+//   variable: '--font-space-mono',
+// })
+
+const roboto_condensed = Roboto_Condensed({
+  weight: '400',
   subsets: ['latin'],
-  variable: '--font-space-mono',
+  variable: '--font-roboto-condensed',
+})
+
+const roboto_mono = Roboto_Mono({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-roboto-mono',
+})
+
+const bebas_neue = Bebas_Neue({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-bebas-neue',
 })
 
 export default function RootContextProvider(props: AppProps) {
@@ -34,8 +52,9 @@ export default function RootContextProvider(props: AppProps) {
 function App({ Component, pageProps }: AppProps) {
   const { loading: queryLoading, error: queryError, data: queryData, refetch } = useQuery(GET_ACCOUNT_INFO);
 
+  // ${space_mono.variable}
   return (
-    <main className={`${barlow_condensed.variable} ${space_mono.variable}`}>
+    <main className={`${barlow_condensed.variable} ${roboto_condensed.variable} ${roboto_mono.variable} ${bebas_neue.variable}`}>
       <Layout>
         <HandleRoute
           Component={Component}
