@@ -7,23 +7,31 @@ import NamePhoneDOBForm from "./name-phone-dob-form";
 import PhoneVerification from "./phone-verification";
 import AddressForm from "./address-form";
 
+function getStepNumber(data: any) {
+    if (!data.getAccountInfo.userDetail) {
+        return 0
+    } else if (!data.getAccountInfo.phoneConfirmed) {
+        return 1
+    } else if (!data.getAccountInfo.userDetail.street) {
+        return 2
+    } else {
+        return 3
+    }
+}
+
 interface ApplicationFormProps {
     nextStep(): void;
 }
 
 export default function ApplicationForm({nextStep}: ApplicationFormProps) {
+    const { loading: accountLoading, error: accountError, data: accountData } = useQuery(GET_ACCOUNT_INFO);
+
     const [updateUserDetail, { data, loading, error }] = useMutation(UPDATE_USER_DETAIL, {
         refetchQueries: [
           GET_ACCOUNT_INFO
         ],
     });
-    const [stepNumber, setStepNumber]  = useState(0);
-
-    const [address1, setAddress1] = useState("");
-    const [address2, setAddress2] = useState("");
-    const [city, setCity] = useState("");
-    const [state, setState] = useState("");
-    const [zip, setZip] = useState("");
+    const [stepNumber, setStepNumber]  = useState(getStepNumber(accountData));
 
     const applicationSteps = [
         <NamePhoneDOBForm
@@ -33,12 +41,9 @@ export default function ApplicationForm({nextStep}: ApplicationFormProps) {
             setStep={setStepNumber}
         />,
         <AddressForm
-            setAddress1={setAddress1}
-            setAddress2={setAddress2}
-            setCity={setCity}
-            setState={setState}
-            setZip={setZip}
-        />
+            setStep={setStepNumber}
+        />,
+        <h1>ssn stuff</h1>
     ]
 
     const currentStep = applicationSteps[stepNumber];

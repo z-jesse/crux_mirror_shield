@@ -1,32 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_ACCOUNT_INFO } from "@/graphql/queries/account";
+import { UPDATE_USER_DETAIL } from "@/graphql/mutations/account";
 
 interface AddressFormProps {
-    setAddress1(address1: string): void;
-    setAddress2(address2: string): void;
-    setCity(city: string): void;
-    setState(state: string): void;
-    setZip(zip: string): void;
+    setStep(step: number): void;
 }
 
 export default function AddressForm({
-    setAddress1,
-    setAddress2,
-    setCity,
-    setState,
-    setZip
+    setStep
 }: AddressFormProps) {
+    const { loading: loading, error: error, data: data } = useQuery(GET_ACCOUNT_INFO);
+    const [updateUserDetail, { data: userDetailData, loading: userDetailLoading, error: useDetailError }] = useMutation(UPDATE_USER_DETAIL, {
+        refetchQueries: [
+          GET_ACCOUNT_INFO
+        ],
+    });
+
+    const [continuable, setContinuable] = useState(false);
+
+    const [street, setStreet] = useState("");
+    const [street2, setStreet2] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [postalCode, setPostalCode] = useState(0);
+    const [country, setCountry] = useState("");
+
+    useEffect(() => {
+        if (street !== "" && city !== "" && state !== "" && postalCode !== 0 && country !== "") {
+            setContinuable(true);
+        } else {
+            setContinuable(false);
+        }
+    })
+
+    useEffect(() => {
+        const userDetail = data.getAccountInfo.useDetail
+        if (userDetail) {
+            setStreet(userDetail.street);
+            setStreet2(userDetail.street2);
+            setCity(userDetail.city);
+            setState(userDetail.state);
+            setPostalCode(userDetail.postalCode);
+            setCountry(userDetail.country);
+        }
+    }, [])
+
+    function nextStep() {
+        const userInformation = {
+            street: street,
+            street2: street2,
+            city: city,
+            region: state,
+            postalCode: postalCode,
+            country: country,
+        }
+        updateUserDetail({ variables: { userInformation }})
+        setStep(3);
+    }
+
+
+    if (loading) return null;
+
     return (
         <>
             <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                 <label className='block font-mono text-white' htmlFor="grid-first-name">Address Line 1 *</label>
                 <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="address1" type="text" placeholder="76 Sugar Land St."
-                    onChange={(e) => setAddress1(e.target.value)}
+                    onChange={(e) => setStreet(e.target.value)}
+                    value={street}
                 />
             </div>
             <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                 <label className='block font-mono text-white' htmlFor="grid-first-name">Address Line 2 *</label>
                 <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="address2" type="text" placeholder="Unit 1234"
-                    onChange={(e) => setAddress2(e.target.value)}
+                    onChange={(e) => setStreet2(e.target.value)}
+                    value={street2}
                 />
             </div>
             <div className='flex flex-wrap'>
@@ -34,21 +83,38 @@ export default function AddressForm({
                     <label className='block font-mono text-white' htmlFor="grid-first-name">City *</label>
                     <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="city" type="text" placeholder="Las Vegas"
                         onChange={(e) => setCity(e.target.value)}
+                        value={city}
                     />
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                     <label className='block font-mono text-white' htmlFor="grid-last-name">State *</label>
                     <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="state" type="text" placeholder="NV"
                         onChange={(e) => setState(e.target.value)}
+                        value={state}
                     />
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                     <label className='block font-mono text-white' htmlFor="grid-dob">Zipcode *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="zip" type="text" placeholder="88901"
-                        onChange={(e) => setZip(e.target.value)}
+                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="zip" type="number" placeholder="88901"
+                        onChange={(e) => setPostalCode(parseInt(e.target.value))}
+                    />
+                </div>
+                <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
+                    <label className='block font-mono text-white' htmlFor="grid-dob">Country *</label>
+                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="country" type="text" placeholder="US"
+                        onChange={(e) => setCountry(e.target.value)}
                     />
                 </div>
             </div>
+
+            {continuable && <div className='flex justify-center items-center mb-3'>
+                <button 
+                    className='uppercase bg-gold hover:bg-white text-black font-mono py-2 px-20'
+                    onClick={nextStep}
+                >
+                        Continue
+                </button>
+            </div>}
         </>
     )
 }

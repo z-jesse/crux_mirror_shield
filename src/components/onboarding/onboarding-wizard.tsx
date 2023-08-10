@@ -7,11 +7,12 @@ import ApplicationForm from "./steps/application-form";
 import FormLayout from "./steps/wrapper";
 
 function getStepNumber(data: any) {
-    if (!data.getAccountInfo) {
+    console.log("data", data)
+    if (!data || !data.getAccountInfo) {
         return 0
-    } else if (!data.getAccountInfo.emailConfirmed) {
+    } else if (data.getAccountInfo.status === "PREBOARDING") {
         return 1
-    } else if (!data.getAccountInfo.userDetail) {
+    } else if (data.getAccountInfo.status === "ONBOARDING") {
         return 2
     }
     else return 3
@@ -20,11 +21,10 @@ function getStepNumber(data: any) {
 export default function OnboardingWizard() {
     const { loading: loading, error: error, data: data } = useQuery(GET_ACCOUNT_INFO);
 
-    if (loading) return null
-
     const startingStep = getStepNumber(data);
 
     const [activePageIndex, setActivePageIndex] = useState(startingStep);
+    console.log("pag eindex", activePageIndex)
 
     const goNextPage = () => {
         setActivePageIndex(index => index + 1);
@@ -43,10 +43,12 @@ export default function OnboardingWizard() {
          />,
         <ApplicationForm
             nextStep={goNextPage}
-        />
+        />,
+        <h1>Onboarding Review</h1>
     ]
     const currentStep = steps[activePageIndex];
 
+    if (loading) return null
 
     const ButtonPrev = () =>
         activePageIndex > 0 ? (

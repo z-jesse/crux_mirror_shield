@@ -15,6 +15,10 @@ export const GET_ACCOUNT_INFO = gql`
         phone
         street
         street2
+        city
+        region
+        postalCode
+        country
       }
     }
   }

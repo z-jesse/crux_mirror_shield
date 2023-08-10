@@ -53,7 +53,7 @@ export default function PhoneVerification({
                 </>
             : 
                 <>
-                    <h1> input confirmation form </h1>
+                    <h1> input confirmation form s</h1>
                     <input 
                         type="text"
                         maxLength={6}
