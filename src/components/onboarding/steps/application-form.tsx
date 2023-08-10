@@ -48,7 +48,7 @@ export default function ApplicationForm({nextStep}: ApplicationFormProps) {
         <div className="flex flex-col items-center">
             <h1 className="uppercase text-6xl lg:text-7xl xl:text-8xl font-condensed">Application</h1>
         </div>
-        <form>
+        {/* <form>
             <div className="flex flex-row space-x-4">
                 <div className="w-1/2">
                     <label className='block font-mono' htmlFor="grid-first-name">First Name *</label>
@@ -72,7 +72,8 @@ export default function ApplicationForm({nextStep}: ApplicationFormProps) {
             <div className="flex flex-col items-center mt-24">
                 <button className="uppercase border border-gray-700 hover:bg-gray-700 text-gray-700 hover:text-white font-mono py-2 px-10" type="submit">Submit</button>
             </div>
-        </form>
+        </form> */}
+        {currentStep}
         </>
     )
 }
