@@ -11,7 +11,15 @@ export const CREATE_USER = gql`
 export const CONFIRM_EMAIL = gql`
   mutation ConfirmEmail($confirmationToken: String!) {
     confirmEmail( confirmationToken: $confirmationToken) {
-        status
+      status
+    }
+  }
+`;
+
+export const CONFIRM_PHONE = gql`
+  mutation ConfirmPhone($confirmationToken: String!) {
+    confirmPhone( confirmationToken: $confirmationToken) {
+      status
     }
   }
 `;

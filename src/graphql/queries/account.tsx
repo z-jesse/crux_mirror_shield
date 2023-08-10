@@ -12,6 +12,7 @@ export const GET_ACCOUNT_INFO = gql`
         firstName
         lastName
         dob
+        phone
         street
         street2
       }

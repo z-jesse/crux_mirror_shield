@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ACCOUNT_INFO } from "@/graphql/queries/account";
 import { UPDATE_USER_DETAIL } from "@/graphql/mutations/account";
+import NamePhoneDOBForm from "./name-phone-dob-form";
+import PhoneVerification from "./phone-verification";
+import AddressForm from "./address-form";
 
 interface ApplicationFormProps {
     nextStep(): void;
@@ -13,18 +16,36 @@ export default function ApplicationForm({nextStep}: ApplicationFormProps) {
         refetchQueries: [
           GET_ACCOUNT_INFO
         ],
-      });
+    });
+    const [stepNumber, setStepNumber]  = useState(0);
 
+    const [address1, setAddress1] = useState("");
+    const [address2, setAddress2] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zip, setZip] = useState("");
 
+    const applicationSteps = [
+        <NamePhoneDOBForm
+            setStep={setStepNumber}
+        />,
+        <PhoneVerification
+            setStep={setStepNumber}
+        />,
+        <AddressForm
+            setAddress1={setAddress1}
+            setAddress2={setAddress2}
+            setCity={setCity}
+            setState={setState}
+            setZip={setZip}
+        />
+    ]
+
+    const currentStep = applicationSteps[stepNumber];
 
     return (
         <>
-            <form>
-                <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
-                    <label className='block font-mono text-white' htmlFor="grid-first-name">First Name *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="firstName" type="text" placeholder="Jane"/>
-                </div>
-            </form>
+            {currentStep}
         </>
     )
 }
