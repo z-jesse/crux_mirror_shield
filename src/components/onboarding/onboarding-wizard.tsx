@@ -5,6 +5,7 @@ import EmailPassForm from "./steps/email-pass-form";
 import ConfirmEmailForm from "./steps/confirm-email-form";
 import ApplicationForm from "./steps/application-form";
 import FormLayout from "./steps/wrapper";
+import Breadcrumb from "../breadcrumb";
 
 function getStepNumber(data: any) {
     console.log("data", data)
@@ -19,12 +20,13 @@ function getStepNumber(data: any) {
 }
 
 export default function OnboardingWizard() {
+    const breadcrumbSteps = ['Account', 'Verification', 'Application', 'Review'];
     const { loading: loading, error: error, data: data } = useQuery(GET_ACCOUNT_INFO);
 
     const startingStep = getStepNumber(data);
 
     const [activePageIndex, setActivePageIndex] = useState(startingStep);
-    console.log("pag eindex", activePageIndex)
+    console.log("page index", activePageIndex)
 
     const goNextPage = () => {
         setActivePageIndex(index => index + 1);
@@ -71,6 +73,10 @@ export default function OnboardingWizard() {
 
     return <>
         <FormLayout>
+            <div className="flex flex-col items-center">
+                <h1 className="uppercase text-6xl lg:text-7xl xl:text-8xl font-bebas">{breadcrumbSteps[activePageIndex]}</h1>
+            </div>
+            <Breadcrumb steps={breadcrumbSteps} currentStep={activePageIndex} /> 
             {currentStep}
         </FormLayout>
         <ButtonPrev/>

@@ -27,15 +27,12 @@ export default function ConfirmEmailForm({nextStep}: ConfirmEmailProps) {
     return (
         <>
         <div className="flex flex-col items-center">
-            <h1 className="uppercase text-6xl lg:text-7xl xl:text-8xl font-condensed mb-24">Verification</h1>
-        </div>
-        <div className="flex flex-col items-center">
             <p className="text-center font-mono">A verification code has been sent to your email.
             <br/>Code expires in 30 minutes.</p>
         </div>
         <div className="flex flex-col items-center">
             <input 
-                className="w-1/2 text-5xl text-center border border-gray-700 py-2 px-10 mt-10 uppercase"
+                className="w-1/2 text-5xl text-center border border-gray-700 py-2 px-10 mt-10 uppercase font-bebas"
                 type="text"
                 maxLength={6}
                 onChange={validateCode}

@@ -60,9 +60,7 @@ export default function EmailPassForm({nextStep}: EmailPassFormProps) {
     return (
         <>
         <form onSubmit={registerUser}>
-            <div className="flex flex-col items-center">
-                <h1 className="uppercase text-6xl lg:text-7xl xl:text-8xl font-condensed">Sign Up</h1>
-            </div>
+            {/* <BreadComp index={0} /> */}
             <div>
                 <div className="flex">
                     <div className="flex flex-col w-1/2 justify-center px-2">
