@@ -13,7 +13,7 @@ const Breadcrumb: FC<BreadProps> = ({ steps, currentStep }) => {
   const next_color = 'border-gray-400 text-gray-400'
 
   return (
-    <div className="flex flex-row justify-center bg-white">
+    <div className="flex flex-row justify-center">
       {steps.map((step: number, index: number) => (
         <div className='flex flex-row'>
           <div 
