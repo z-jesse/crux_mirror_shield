@@ -65,15 +65,15 @@ export default function NamePhoneDOBForm({
         <>
             <div className='flex flex-wrap'>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
-                    <label className='block font-mono text-white' htmlFor="grid-first-name">First Name *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="firstName" type="text" placeholder="Jane"
+                    <label className='block font-mono text-black' htmlFor="grid-first-name">First Name *</label>
+                    <input className='block w-full py-2 px-3 border border-gray-700 font-mono' id="firstName" type="text" placeholder="Jane"
                         onChange={(e) => setFirstName(e.target.value)}
                         value={firstName}
                     />
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
-                    <label className='block font-mono text-white' htmlFor="grid-last-name">Last Name *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="lastName" type="text" placeholder="Doe"
+                    <label className='block font-mono text-black' htmlFor="grid-last-name">Last Name *</label>
+                    <input className='block w-full py-2 px-3 border border-gray-700 font-mono' id="lastName" type="text" placeholder="Doe"
                         onChange={(e) => setLastName(e.target.value)}
                         value={lastName}
                     />
@@ -82,15 +82,15 @@ export default function NamePhoneDOBForm({
 
             <div className='flex flex-wrap'>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
-                    <label className='block font-mono text-white' htmlFor="grid-dob">Date of Birth *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="dob" type="date" placeholder="MM/DD/YYYY"
+                    <label className='block font-mono text-black' htmlFor="grid-dob">Date of Birth *</label>
+                    <input className='block w-full py-2 px-3 border border-gray-700 font-mono' id="dob" type="date" placeholder="MM/DD/YYYY"
                         onChange={(e) => setDob(e.target.value)}
                         value={dob.substring(0, 10)}
                     />
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
-                    <label className='block font-mono text-white' htmlFor="grid-phone">Phone Number *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="phone" type="tel" placeholder="(234) 567-8910"
+                    <label className='block font-mono text-black' htmlFor="grid-phone">Phone Number *</label>
+                    <input className='block w-full py-2 px-3 border border-gray-700 font-mono' id="phone" type="tel" placeholder="(234) 567-8910"
                         onChange={(e) => setPhoneNumber(e.target.value)}
                         value={phoneNumber}
                     />
