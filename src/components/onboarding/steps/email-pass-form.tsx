@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_USER } from '@/graphql/mutations/onboarding';
@@ -14,6 +14,9 @@ export default function EmailPassForm({nextStep}: EmailPassFormProps) {
             GET_ACCOUNT_INFO
           ],
     });
+
+    const [emailError, setEmailError] = useState("");
+    const [passError, setPassError] = useState("");
 
     const router = useRouter();
 
@@ -41,19 +44,21 @@ export default function EmailPassForm({nextStep}: EmailPassFormProps) {
 
         // email and password should not be empty
         if (!refinedEmail) {
-            console.log("email empty");
+            setEmailError("Required field")
             return false;
         }
-        if (password.length < 8) {
-            console.log("password must be minimum 8 characters");
+        
+        //valid email
+        if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(refinedEmail)) {
+            setEmailError("Must input valid email")
             return false;
         }
 
-        //valid email
-        // if (!/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(refinedEmail)) {
-        //     console.log("email not valid")
-        //     return false;
-        // }
+        if (password.length < 8) {
+            setPassError("Password must be minimum 8 characters")
+            return false;
+        }
+
         return true;
     }
 
@@ -64,10 +69,28 @@ export default function EmailPassForm({nextStep}: EmailPassFormProps) {
             <div>
                 <div className="flex">
                     <div className="flex flex-col w-1/2 justify-center px-2">
-                        <label className='block font-mono' htmlFor="grid-first-name">Email</label>
-                        <input className='block w-full py-2 px-3 text-gray-700 font-mono border border-gray-700 hover:border-custom_purple' id="email" type="text" placeholder="example@email.com"/>
-                        <label className='block font-mono' htmlFor="grid-last-name">Password</label>
-                        <input className='block w-full py-2 px-3 text-gray-700 font-mono border border-gray-700 hover:border-custom_purple' id="password" type="password" placeholder="**********"/>
+                        <div>
+                            <label className='block font-mono' htmlFor="grid-first-name">Email</label>
+                            <input 
+                                className='block w-full py-2 px-3 text-gray-700 font-mono border border-gray-700 hover:border-custom_purple' 
+                                id="email" 
+                                type="text" 
+                                placeholder="example@email.com"
+                                onChange={() => setEmailError("")}
+                            />
+                            <h1>{emailError}</h1>
+                        </div>
+                        <div>
+                            <label className='block font-mono' htmlFor="grid-last-name">Password</label>
+                            <input 
+                                className='block w-full py-2 px-3 text-gray-700 font-mono border border-gray-700 hover:border-custom_purple' 
+                                id="password" 
+                                type="password" 
+                                placeholder="**********"
+                                onChange={() => setPassError("")}
+                            />
+                            <h1>{passError}</h1>                        
+                        </div>
                     </div>
                     <div className="w-1/2">
                         <div className='-z-100 relative w-full'>

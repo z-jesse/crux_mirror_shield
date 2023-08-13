@@ -35,14 +35,14 @@ export default function AddressForm({
     })
 
     useEffect(() => {
-        const userDetail = data.getAccountInfo.useDetail
+        const userDetail = data.getAccountInfo.userDetail
         if (userDetail) {
             setStreet(userDetail.street);
             setStreet2(userDetail.street2);
             setCity(userDetail.city);
-            setState(userDetail.state);
-            setPostalCode(userDetail.postalCode);
+            setState(userDetail.region);
             setCountry(userDetail.country);
+            setPostalCode(userDetail.postalCode);
         }
     }, [])
 
@@ -58,6 +58,13 @@ export default function AddressForm({
         updateUserDetail({ variables: { userInformation }})
         setStep(3);
     }
+
+    // function onChange(e) {
+    //     const re = /^[0-9\b]+$/;
+    //     if (e.target.value === '' || re.test(e.target.value)) {
+    //         this.setState()
+    //     }
+    // }
 
 
     if (loading) return null;
@@ -95,14 +102,16 @@ export default function AddressForm({
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                     <label className='block font-mono text-white' htmlFor="grid-dob">Zipcode *</label>
-                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="zip" type="number" placeholder="88901"
+                    <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="zip" placeholder="88901"
                         onChange={(e) => setPostalCode(parseInt(e.target.value))}
+                        value={postalCode}
                     />
                 </div>
                 <div className='w-full md:w-1/2 px-3 mb-3 md:mb-4'>
                     <label className='block font-mono text-white' htmlFor="grid-dob">Country *</label>
                     <input className='block w-full py-2 px-3 bg-gray-200 text-gray-700 font-mono' id="country" type="text" placeholder="US"
                         onChange={(e) => setCountry(e.target.value)}
+                        value={country}
                     />
                 </div>
             </div>
@@ -115,6 +124,7 @@ export default function AddressForm({
                         Continue
                 </button>
             </div>}
+            <button onClick={() => setStep(0)}> Back</button>
         </>
     )
 }

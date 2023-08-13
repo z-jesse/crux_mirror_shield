@@ -15,7 +15,7 @@ const Breadcrumb: FC<BreadProps> = ({ steps, currentStep }) => {
   return (
     <div className="flex flex-row justify-center">
       {steps.map((step: number, index: number) => (
-        <div className='flex flex-row'>
+        <div className='flex flex-row' key={index}>
           <div 
             className={`flex flex-col w-16 h-full justify-center
             ${index === 0 ? 'hidden' : ''}

@@ -19,6 +19,7 @@ export const GET_ACCOUNT_INFO = gql`
         region
         postalCode
         country
+        govId
       }
     }
   }

@@ -26,9 +26,15 @@ export default function HandleRoute({Component, pageProps}: HandleRouteProps) {
                 router.push("/onboarding");
             }
         }
-    }, [loading])
 
-    if (loading || routeRequiresUserDetails && (data && data.getAccountInfo !== "ONBOARDING")) {
+        if (routeRequiresOnboarding) {
+            if (data && data.getAccountInfo.status === "ACTIVE") {
+                router.push("/dashboard")
+            }
+        }
+    })
+
+    if (loading || routeRequiresOnboarding && (data && data.getAccountInfo !== "ONBOARDING")) {
         return null;
     } else {
         return <Component {...pageProps} />;

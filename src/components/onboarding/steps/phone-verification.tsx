@@ -16,54 +16,39 @@ export default function PhoneVerification({
             GET_ACCOUNT_INFO
           ],
     });
-    const { loading: accountLoading, error: accountError, data: accountData } = useQuery(GET_ACCOUNT_INFO);
 
-    const [continuable, setContinuable] = useState(false);
-
-    useEffect(() => {
-        if (accountData.getAccountInfo.phoneConfirmed) {
-            setContinuable(true);
-        }
-    })
+    const [codeError, setCodeError] = useState("");
 
     async function validateCode(e: any) {
         e.preventDefault();
+        setCodeError("");
 
         const confirmationToken = e.target.value;
         if (confirmationToken.length === 6) {
-            await confirmPhone({ variables: { confirmationToken }})
-            setContinuable(true);
+            await confirmPhone({ variables: { confirmationToken }}).then((data) =>{
+                if (data.data.confirmPhone.status === "failure") {
+                    setCodeError("Invalid Code")
+                } else {
+                    setStep(2);
+                }
+            }) 
         }
     }
 
-    if (loading) return null;
     return (
         <>
-            {continuable ? 
-                <>
-                    <h1>Phone Confirmed</h1>
-                    <div className='flex justify-center items-center mb-3'>
-                        <button 
-                            className='uppercase bg-gold hover:bg-white text-black font-mono py-2 px-20'
-                            onClick={() => setStep(2)}
-                        >
-                                Continue
-                        </button>
-                    </div>
-                </>
-            : 
-                <>
-                    <h1> input confirmation form s</h1>
-                    <input 
-                        type="text"
-                        maxLength={6}
-                        onChange={validateCode}
-                    >
-        
-                    </input>
-                </>
-            }
-            <button onClick={() => setStep(0)}> Back </button>
+            <>
+                <h1> input confirmation form </h1>
+                <input 
+                    type="text"
+                    maxLength={6}
+                    onChange={validateCode}
+                >
+    
+                </input>
+                <h1> { codeError } </h1>
+            </>
+            <button onClick={() => setStep(0)}> Back</button>
         </>
     )
 }

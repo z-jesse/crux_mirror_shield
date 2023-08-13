@@ -23,3 +23,11 @@ export const CONFIRM_PHONE = gql`
     }
   }
 `;
+
+export const COMPLETE_APPLICATION = gql`
+  mutation CompleteApplication {
+    completeApplication {
+      status
+    }
+  }
+`;

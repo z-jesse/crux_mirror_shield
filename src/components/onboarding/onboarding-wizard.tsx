@@ -4,11 +4,11 @@ import { useQuery } from '@apollo/client';
 import EmailPassForm from "./steps/email-pass-form";
 import ConfirmEmailForm from "./steps/confirm-email-form";
 import ApplicationForm from "./steps/application-form";
+import ReviewApplication from "./steps/review-application";
 import FormLayout from "./steps/wrapper";
 import Breadcrumb from "../breadcrumb";
 
 function getStepNumber(data: any) {
-    console.log("data", data)
     if (!data || !data.getAccountInfo) {
         return 0
     } else if (data.getAccountInfo.status === "PREBOARDING") {
@@ -26,7 +26,6 @@ export default function OnboardingWizard() {
     const startingStep = getStepNumber(data);
 
     const [activePageIndex, setActivePageIndex] = useState(startingStep);
-    console.log("page index", activePageIndex)
 
     const goNextPage = () => {
         setActivePageIndex(index => index + 1);
@@ -46,7 +45,9 @@ export default function OnboardingWizard() {
         <ApplicationForm
             nextStep={goNextPage}
         />,
-        <h1>Onboarding Review</h1>
+        <ReviewApplication
+            previousStep={goPrevPage}
+        />
     ]
     const currentStep = steps[activePageIndex];
 

@@ -27,6 +27,8 @@ export default function NamePhoneDOBForm({
     useEffect(() => {
         if (firstName !== "" && lastName !== "" && phoneNumber !== "" && dob !== "") {
             setContinuable(true);
+        } else {
+            setContinuable(false);
         }
     })
 
@@ -39,7 +41,6 @@ export default function NamePhoneDOBForm({
             setDob(user.userDetail.dob);
         }
     }, [])
-    console.log(data)
 
     
     function nextStep() {
@@ -50,7 +51,11 @@ export default function NamePhoneDOBForm({
             dob: dob,
         }
         updateUserDetail({ variables: { userInformation }})
-        setStep(1);
+        if (!data.getAccountInfo.phoneConfirmed) {
+            setStep(1);
+        } else {
+            setStep(2);
+        }
     }
 
 
