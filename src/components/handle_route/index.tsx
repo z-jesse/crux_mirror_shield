@@ -32,9 +32,9 @@ export default function HandleRoute({Component, pageProps}: HandleRouteProps) {
                 router.push("/dashboard")
             }
         }
-    })
+    }, [loading])
 
-    if (loading || routeRequiresOnboarding && (data && data.getAccountInfo !== "ONBOARDING")) {
+    if (loading || routeRequiresUserDetails && (data && data.getAccountInfo !== "ONBOARDING")) {
         return null;
     } else {
         return <Component {...pageProps} />;
