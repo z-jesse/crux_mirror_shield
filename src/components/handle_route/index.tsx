@@ -28,7 +28,7 @@ export default function HandleRoute({Component, pageProps}: HandleRouteProps) {
         }
 
         if (routeRequiresOnboarding) {
-            if (data && data.getAccountInfo.status === "ACTIVE") {
+            if (data && data.getAccountInfo && data.getAccountInfo.status === "ACTIVE") {
                 router.push("/dashboard")
             }
         }
