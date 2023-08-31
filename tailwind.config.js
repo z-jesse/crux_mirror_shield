@@ -13,8 +13,9 @@ module.exports = {
         'custom_gold': '#ffe680',
       },
       fontFamily: {
-        condensed: ['var(--font-barlow-condensed)'],
-        mono: ['var(--font-space-mono)'],
+        condensed: ['var(--font-roboto-condensed)'],
+        mono: ['var(--font-roboto-mono)'],
+        bebas: ['var(--font-bebas-neue)'],
       }
     },
   },

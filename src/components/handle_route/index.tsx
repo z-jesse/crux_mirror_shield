@@ -23,7 +23,13 @@ export default function HandleRoute({Component, pageProps}: HandleRouteProps) {
     useEffect(() => {
         if (data && data.getAccountInfo) {
             if (data.getAccountInfo.status === "ONBOARDING") {
-                router.push("/onboarding/user-details");
+                router.push("/onboarding");
+            }
+        }
+
+        if (routeRequiresOnboarding) {
+            if (data && data.getAccountInfo && data.getAccountInfo.status === "ACTIVE") {
+                router.push("/dashboard")
             }
         }
     }, [loading])

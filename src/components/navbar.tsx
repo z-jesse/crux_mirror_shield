@@ -151,7 +151,7 @@ export default function Navbar() {
               </div>}
               {!loggedIn &&
                 <div className="lg:flex lg:flex-1 lg:justify-end pl-6">
-                  <Link href="/onboarding/login" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white">
+                  <Link href="/onboarding/login" className="uppercase text-sm font-mono py-2 px-4 leading-6 text-white hover:text-black ring-1 ring-white hover:bg-white hidden">
                       Log in <span aria-hidden="true">&rarr;</span>
                   </Link>
                 </div>}
